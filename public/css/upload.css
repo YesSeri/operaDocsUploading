@@ -1,0 +1,37 @@
+body{
+  background-color: #ddd;
+    display: flex;
+    justify-content: center;
+}
+.container{
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1600px;
+}
+form{
+  display: flex;
+  flex-wrap: wrap;
+}
+.labelInputContainer{
+  display:flex;
+  flex: 100%;
+
+}
+.formLabel{
+  text-align: right;
+  flex: 1;
+  max-width: 85px;
+  margin-right: 5px;
+}
+.formInput{
+  flex: 6;
+}
+.bottomRow{
+  flex-grow:1;
+}
+#bottomRow{
+  width: 100%;
+}
+#submitBtn{
+  flex-grow:1;
+}

@@ -1,0 +1,36 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        title Create
+        link(rel='stylesheet' href='./css/upload.css')
+    body
+        div(class='container')
+            h1 Create Resource with Formidable and Pug
+            form(action='/posts' enctype='multipart/form-data' method='post')
+                div(class='labelInputContainer')
+                    label(for='title' class='formLabel') Title
+                    input(type='text' name='title' class='formInput')
+                div(class='labelInputContainer')
+                    label(for='description' class='formLabel') Story
+                    input(type='text' name='description' class='formInput')
+                div(class='labelInputContainer')
+                    label(for='type' class='formLabel') Type
+                    input(type='text' name='type' class='formInput')
+                div(class='labelInputContainer')
+                    label(for='opera' class='formLabel') Opera
+                    input(type='text' name='opera' class='formInput')
+                div(class='labelInputContainer')
+                    label(for='type' class='formLabel') Last Name
+                    input(type='text' name='lastName' class='formInput')
+                div(class='labelInputContainer')
+                    label(for='type' class='formLabel') Placement
+                    input(type='text' name='placement' class='formInput' id='placementValue' onkeypress='return event.charCode >= 48 && event.charCode <= 57')
+                div(id='bottomRow')
+                    button(type='button' id='incBtn' value='1' onclick='increase()') Inc
+                    label(for='uploadedFile' id='uploadedFile' class='bottomRow') Uploaded File: 
+                    input(type='file' name='uploadedFile' class='bottomRow') 
+                    input(id='submitBtn' type='submit' value='Submit')
+            p score, aria, recitativo, ouverture, sinfonia, intermezzo, choir
+            p duet, terzetto, quartet, quintet, sextet, septet, octet, nonet
+        script(src='./js/upload.js') 
