@@ -3,8 +3,7 @@ const fs = require('fs');
 const formidable = require('formidable');
 const path = require('path');
 const router = express.Router();
-const db = require('../helper/dbConnectionLocal');
-const fileFolder = path.join(__dirname, '..', '/pdfs/');
+const db = require('../helper/dbConnection');
 
 router.use(express.json());
 
@@ -19,22 +18,31 @@ router.post('/', (req, res) => {
   const form = formidable({});
   form.parse(req, async (err, fields, files) => {
     const startPath = files.uploadedFile.path;
-    const { title, description, type, opera, lastName, placement } = fields;
-    console.log(title);
+    const { description, type, opera, lastName, placement } = fields;
+    const title = fields.title.trim();
     const operaId = await processOpera(opera);
-    const fileTitle = `${lastName}-${opera}-${placement}-${title}.pdf`.replace(/\s/g, '_');
+    const subfolder = opera.replace(/\s/g, '_').toLowerCase();
+    const fileFolder = path.join(__dirname, '..', '/pdfs/', subfolder);
+    const fileTitle = `${lastName}-${opera}-${placement}-${title}.pdf`.replace(
+      /\s/g,
+      '_'
+    );
     const document = {
-      title,
-      description,
+      title: title,
+      description: description.trim(),
       type: type.toLowerCase(),
       opera_id: operaId,
-      fileTitle,
+      file_title: path.join(subfolder, fileTitle),
       placement,
     };
-    db.query('INSERT INTO Pieces_test SET ?', document, function (err, result) {
-      if (err) throw err;
+    db.query('INSERT INTO Pieces SET ?', document, function (err, result) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
       res.header(200).json(document);
-      copyFile(startPath, fileFolder + fileTitle);
+      console.log(document);
+      copyFile(startPath, fileFolder, fileTitle);
     });
   });
 });
@@ -47,6 +55,7 @@ async function processOpera(opera) {
       (err, result) => {
         if (err) {
           reject(err);
+          throw err;
         } else {
           resolve(result);
         }
@@ -68,10 +77,13 @@ router.get('/:id', (req, res) => {
   });
 });
 
-function copyFile(originPath, filePath) {
-  fs.copyFile(originPath, filePath, (err) => {
+function copyFile(originPath, fileFolder, fileTitle) {
+  if (!fs.existsSync(fileFolder)){
+    fs.mkdirSync(fileFolder);
+  }
+  fs.copyFile(originPath, path.join(fileFolder, fileTitle), (err) => {
     if (err) throw err;
-    console.log(`Copied: ${originPath} to: ${filePath}`);
+    console.log(`Copied: ${originPath} to: ${fileTitle}`);
   });
 }
 

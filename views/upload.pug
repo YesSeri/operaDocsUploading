@@ -9,6 +9,15 @@ html(lang='en')
             h1 Create Resource with Formidable and Pug
             form(action='/posts' enctype='multipart/form-data' method='post')
                 div(class='labelInputContainer')
+                    label(for='type' class='formLabel') Last Name
+                    input(type='text' name='lastName' class='formInput')
+                    label(for='opera' class='formLabel') Opera
+                    input(type='text' name='opera' class='formInput')
+                div(class='line')
+                div(class='labelInputContainer')
+                    label(for='type' class='formLabel') Placement
+                    input(type='text' name='placement' class='formInput' id='placementValue' onkeypress='return event.charCode >= 48 && event.charCode <= 57')
+                div(class='labelInputContainer')
                     label(for='title' class='formLabel') Title
                     input(type='text' name='title' class='formInput')
                 div(class='labelInputContainer')
@@ -17,20 +26,13 @@ html(lang='en')
                 div(class='labelInputContainer')
                     label(for='type' class='formLabel') Type
                     input(type='text' name='type' class='formInput')
-                div(class='labelInputContainer')
-                    label(for='opera' class='formLabel') Opera
-                    input(type='text' name='opera' class='formInput')
-                div(class='labelInputContainer')
-                    label(for='type' class='formLabel') Last Name
-                    input(type='text' name='lastName' class='formInput')
-                div(class='labelInputContainer')
-                    label(for='type' class='formLabel') Placement
-                    input(type='text' name='placement' class='formInput' id='placementValue' onkeypress='return event.charCode >= 48 && event.charCode <= 57')
+                div(class='space')
                 div(id='bottomRow')
                     button(type='button' id='incBtn' value='1' onclick='increase()') Inc
                     label(for='uploadedFile' id='uploadedFile' class='bottomRow') Uploaded File: 
                     input(type='file' name='uploadedFile' class='bottomRow') 
                     input(id='submitBtn' type='submit' value='Submit')
-            p score, aria, recitativo, ouverture, sinfonia, intermezzo, choir
+                div(class='line')
+            p score, aria, recitativo, ouverture, sinfonia, intermezzo, choir, finale
             p duet, terzetto, quartet, quintet, sextet, septet, octet, nonet
         script(src='./js/upload.js') 

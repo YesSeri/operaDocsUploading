@@ -3,19 +3,29 @@ body{
     display: flex;
     justify-content: center;
 }
+form{
+  display: flex;
+  flex-wrap: wrap;
+}
 .container{
   text-align: center;
   margin: 0 auto;
   max-width: 1600px;
 }
-form{
-  display: flex;
-  flex-wrap: wrap;
-}
 .labelInputContainer{
   display:flex;
   flex: 100%;
-
+}
+.line{
+  border-bottom: solid black 3px;
+  width: 100%;
+  height: 20px;
+  margin-left: 92px;
+  margin-bottom: 20px;
+}
+.space{
+  width: 100%;
+  height: 15px;
 }
 .formLabel{
   text-align: right;

@@ -13,8 +13,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(express.static('public'));
-app.use('/upload', uploadRoute);
 app.use('/posts', postsRoute);
+app.use('/*', uploadRoute);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening at port ${port}`));

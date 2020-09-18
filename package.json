@@ -4,7 +4,6 @@
   "description": "This is used for creating the database. The pdfs are moved to the pdfs folder with correct name and the name of the piece added to the localhost mysql db.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server"
   },
   "author": "Henrik Zenkert",
