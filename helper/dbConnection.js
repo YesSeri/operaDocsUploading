@@ -1,6 +1,10 @@
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection(process.env.DB_CONNECTION_URL)
+const connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    database : 'mysql_docs'
+});
 
 connection.connect(function(err) {
     if (err) throw err;

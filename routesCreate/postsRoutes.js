@@ -8,7 +8,7 @@ const db = require('../helper/dbConnection');
 router.use(express.json());
 
 router.get('/', (req, res) => {
-  db.query('SELECT * FROM Pieces', function (err, result) {
+  db.query('SELECT * FROM pieces', function (err, result) {
     if (err) throw err;
     res.json(result);
   });
@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
       file_title: path.join(subfolder, fileTitle),
       placement,
     };
-    db.query('INSERT INTO Pieces SET ?', document, function (err, result) {
+    db.query('INSERT INTO pieces SET ?', document, function (err, result) {
       if (err) {
         console.log(err);
         throw err;
@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
 async function processOpera(opera) {
   const operaId = await new Promise((resolve, reject) =>
     db.query(
-      'SELECT id FROM `Operas` WHERE name = ? ',
+      'SELECT id FROM operas WHERE name = ? ',
       opera,
       (err, result) => {
         if (err) {
@@ -66,7 +66,7 @@ async function processOpera(opera) {
 }
 router.get('/:id', (req, res) => {
   const id = req.params.id;
-  db.query('SELECT * FROM Pieces WHERE id = ?', id, function (err, result) {
+  db.query('SELECT * FROM pieces WHERE id = ?', id, function (err, result) {
     if (err) throw err;
 
     if (Object.keys(result).length === 0) {
