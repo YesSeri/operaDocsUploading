@@ -22,6 +22,10 @@ router.post('/', (req, res) => {
     const title = fields.title.trim();
     const operaId = await processOpera(opera);
     const subfolder = opera.replace(/\s/g, '_').toLowerCase();
+    const folder = path.join(__dirname, '..', '/pdfs/');
+	if (!fs.existsSync(folder)){
+	  fs.mkdirSync(folder);
+    }    
     const fileFolder = path.join(__dirname, '..', '/pdfs/', subfolder);
     const fileTitle = `${lastName}-${opera}-${placement}-${title}.pdf`.replace(
       /\s/g,
