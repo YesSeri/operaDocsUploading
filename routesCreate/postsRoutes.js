@@ -23,9 +23,9 @@ router.post('/', (req, res) => {
     const operaId = await processOpera(opera);
     const subfolder = opera.replace(/\s/g, '_').toLowerCase();
     const folder = path.join(__dirname, '..', '/pdfs/');
-	if (!fs.existsSync(folder)){
-	  fs.mkdirSync(folder);
-    }    
+    if (!fs.existsSync(folder)) {
+      fs.mkdirSync(folder);
+    }
     const fileFolder = path.join(__dirname, '..', '/pdfs/', subfolder);
     const fileTitle = `${lastName}-${opera}-${placement}-${title}.pdf`.replace(
       /\s/g,
@@ -53,23 +53,19 @@ router.post('/', (req, res) => {
 
 async function processOpera(opera) {
   const operaId = await new Promise((resolve, reject) =>
-    db.query(
-      'SELECT id FROM Operas WHERE name = ? ',
-      opera,
-      (err, result) => {
-        if (err) {
-          reject(err);
-          throw err;
-        } else {
-          resolve(result);
-        }
+    db.query('SELECT id FROM Operas WHERE name = ? ', opera, (err, result) => {
+      if (err) {
+        reject(err);
+        throw err;
+      } else {
+        resolve(result);
       }
-    )
+    })
   );
   return operaId[0].id;
 }
 router.get('/:id', (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
   db.query('SELECT * FROM Pieces WHERE id = ?', id, function (err, result) {
     if (err) throw err;
 
@@ -82,7 +78,7 @@ router.get('/:id', (req, res) => {
 });
 
 function copyFile(originPath, fileFolder, fileTitle) {
-  if (!fs.existsSync(fileFolder)){
+  if (!fs.existsSync(fileFolder)) {
     fs.mkdirSync(fileFolder);
   }
   fs.copyFile(originPath, path.join(fileFolder, fileTitle), (err) => {
